@@ -19,13 +19,34 @@ class UsersController {
         password,
       });
 
-      return res.json({ status: "success", createdUser: checkIfUserExist });
+      return res.json({ status: "success", createdUser: createdUser });
     } catch (err) {
-        res.status(400);
-        return res.json({status: "error",error: err.message});
+        return res.status(400).json({status: "error",error: err.message});
 
     }
   }
+
+  async getUserDetails(req, res, next) {
+    const userid = req.params.id;
+    const userDetails = await this._userModel.getUserById(userid);
+    return res.json({status: "success", data: userDetails});
+
+  }
+  async updateUser(req, res) {
+    const {id} = req.params;
+    const {firstName,lastName} = req.body;
+    const updateduserDetails = await this._userModel.updateUser(id,{firstName,lastName});
+    return res.json({status: "success", data: updateduserDetails});
+
+  }
+
+  async deleteUser(req,res,next) {
+    const {id} = req.params;
+    const deltedUser = await this._userModel.deleteUser(id);
+    return res.json({status: "success", data: deltedUser});
+  }
+
+
 }
 
 export default UsersController;
