@@ -1,7 +1,7 @@
-import BaseModel from "./base.model";
+import BaseModel from "./base.model.js";
 export default class PostsModel extends BaseModel {
-    constructor() {
-        this._tableName = 'posts';
-    }
-
+  constructor() {
+    super();
+    this._collectionName = "posts";
+  }
 }
