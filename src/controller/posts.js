@@ -19,4 +19,14 @@ export default class PostController {
       res.json({ status: "error", error: err.message });
     }
   }
+
+  async getPostDetailsById(req, res, next) {
+    try {
+      const { postId } = req.params;
+      const postDetails = await this._postModel.getPostDetailsById(postId);
+      return res.status(200).json({ status: "success", data: postDetails });
+    } catch (err) {
+      return res.status(500).json({ status: "error", error: err.message });
+    }
+  }
 }
